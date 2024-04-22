@@ -181,9 +181,8 @@ end
 function table.filter(__table, __filter)
 	local out = {}
 	for _, value in pairs(__table) do
-	--if filterIter(v, k, table) then out[k] = v end
 		if (__filter(value)) then
-			__table.insert (out,value)
+			table.insert(out,value)
 		end
 	end
 
