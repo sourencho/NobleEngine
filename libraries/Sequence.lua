@@ -84,7 +84,7 @@ function Sequence.update( pacing )
 
 			seq.time = seq.time + deltaTime
 			seq.cachedResultTimestamp = nil
-			
+
 			seq:triggerCallbacks( previousTime, seq.time )
 
 			if seq:isDone() then
@@ -362,7 +362,7 @@ function Sequence:get( time )
 	else
 		result = easing.fn(clampedTime-easing.timestamp, easing.from, easing.to-easing.from, easing.duration, table.unpack(easing.params or {}))
 	end
-	
+
 	-- cache
 	self.cachedResultTimestamp = clampedTime
 	self.cachedResult = result
@@ -379,7 +379,7 @@ function Sequence:triggerCallbacks( startTime, endTime )
 	end
 
 	local deltaTime = endTime - startTime
-	
+
 	local triggerCallbacksClampedTimeRange = function( clampedStart, clampedEnd)
 		local isForward = true
 		if clampedStart>clampedEnd then
@@ -478,7 +478,7 @@ function Sequence:addRunning()
 end
 
 function Sequence:removeRunning()
-	-- _runningSequences table will be updated in the next sequence.update() 
+	-- _runningSequences table will be updated in the next sequence.update()
 	self.isRunning = false
 end
 
@@ -544,4 +544,12 @@ end
 function toMilliseconds(seconds)
 	if seconds==nil then return nil end
 	return math.floor(1000*seconds)
+end
+
+function Sequence.clearAll()
+	for index, seq in pairs(_runningSequences) do
+		if seq.isRunning then
+			seq:clear()
+		end
+	end
 end
