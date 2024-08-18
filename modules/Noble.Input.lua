@@ -104,8 +104,9 @@ local crankIndicatorForced = false
 -- <strong>NOTE: The indicator will only ever show if the crank is docked, unless `__evenWhenUndocked` is true.</strong>
 -- @bool __active Set true to start showing the on-screen crank indicator. Set false to stop showing it.
 -- @bool[opt=false] __evenWhenUndocked Set true to show the crank indicator even if the crank is already undocked (`__active` must also be true).
-function Noble.Input.setCrankIndicatorStatus(__active, __evenWhenUndocked)
+function Noble.Input.setCrankIndicatorStatus(__active, __evenWhenUndocked, __clockwise)
 	if (__active) then
+		UI.crankIndicator.clockwise = __clockwise
 		UI.crankIndicator:start()
 	end
 	crankIndicatorActive = __active
